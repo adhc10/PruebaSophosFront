@@ -1,0 +1,11 @@
+<form (ngSubmit)="updateProduct()">
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" class="form-control" [(ngModel)]="product.Nombre">
+    </div>
+    <div class="form-group">
+        <label for="ValorUnitario">Valor Unitario</label>
+        <input type="text" name="ValorUnitario" class="form-control" [(ngModel)]="product.ValorUnitario">
+    </div>
+    <button class="btn btn-dark btn-sm mt-4">Actualizar</button>
+</form>

@@ -1,0 +1,48 @@
+<form (ngSubmit)="insertProduct()">
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" 
+        class="form-control" [formControl]="nameCtrl"
+        [(ngModel)]="product.Nombre">
+        <div>
+            <p *ngIf="nameCtrl.errors && nameCtrl.dirty">
+                <small *ngIf="nameCtrl.hasError('required')">El campo es requerido</small>
+                <small *ngIf="nameCtrl.hasError('minlength')">Debe ser mínimo de 4</small>
+            </p>
+        </div>
+    </div>    
+    <div class="form-group">
+        <label for="valorUnitario">Valor Unitario</label>
+        <input type="text" name="valorUnitario" class="form-control" [formControl]="valorUnitarioCtrl" [(ngModel)]="product.ValorUnitario">
+        <div>
+            <p *ngIf="valorUnitarioCtrl.errors && valorUnitarioCtrl.dirty">
+                <small *ngIf="valorUnitarioCtrl.hasError('required')">El campo es requerido</small>
+            </p>
+        </div>
+    </div>  
+    
+    <button [disabled]="nameCtrl.invalid" 
+    [disabled]="valorUnitarioCtrl.invalid"    
+    class="btn btn-dark btn-sm mt-4">Crear</button>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Valor Unitario</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let prod of products">
+            <th scope="row">{{ prod.idProducto }}</th>
+            <td>{{ prod.Nombre }}</td>
+            <td>{{ prod.ValorUnitario }}</td>   
+            <td>
+                <button class="btn btn-danger btm-sm" (click)="deleteProduct(prod.idProducto)">Eliminar</button>
+                <button class="btn btn-warning btm-sm mx-2" routerLink="../editProduct/{{prod.idProducto}}">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

@@ -1,0 +1,61 @@
+<h6 class="text-center">Realizar Venta</h6>
+<form (ngSubmit)="insertSale()">
+    <div class="form-group">
+        <label for="cantidad">Cantidad</label>
+        <input type="text" name="cantidad" 
+        class="form-control" [formControl]="cantidadCtrl"
+        [(ngModel)]="sale.Cantidad">
+        <div>
+            <p *ngIf="cantidadCtrl.errors && cantidadCtrl.dirty">
+                <small *ngIf="cantidadCtrl.hasError('required')">El campo es requerido</small>
+            </p>
+        </div>
+    </div>    
+    <div class="form-group">
+        <label for="total">Valor Total</label>
+        <input type="text" class="form-control" [formControl]="totalCtrl" name="total" [(ngModel)]="sale.ValorTotal">
+        <div>
+            <p *ngIf="totalCtrl.errors && totalCtrl.dirty">
+                <small *ngIf="totalCtrl.hasError('required')">El campo es requerido</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">        
+        <label for="idProduct">Producto</label>
+        <select name="idProduct" id="idProduct" [formControl]="idProductCtrl" class="form-control" [(ngModel)]="sale.idProducto">                
+            <option value="{{ prod.idProducto }}" *ngFor="let prod of product" >{{ prod.Nombre }}</option>
+        </select>
+    </div>
+    <div class="form-group">        
+        <label for="idclient">Cliente</label>
+        <select name="idclient" id="idclient" [formControl]="idclientCtrl" class="form-control" [(ngModel)]="sale.idCliente">                
+            <option value="{{ cli.idCliente }}" *ngFor="let cli of client" >{{ cli.Nombre }}</option>
+        </select>
+    </div>
+    <button [disabled]="cantidadCtrl.invalid"  
+    [disabled]="totalCtrl.invalid"
+    [disabled]="idProductCtrl.invalid"
+    [disabled]="idclientCtrl.invalid"
+    class="btn btn-dark btn-sm mt-4">Crear</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cantidad</th>
+            <th scope="col">Valor Total</th>
+            <th scope="col">Producto</th>
+            <th scope="col">Cliente</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let sal of sales">
+            <th scope="row">{{ sal.idVenta }}</th>
+            <td>{{ sal.Cantidad }}</td>
+            <td>{{ sal.ValorTotal }}</td>
+            <td>{{ sal.NombreProducto }}</td>
+            <td>{{ sal.NombreCliente }}</td>  
+        </tr>
+    </tbody>
+</table>

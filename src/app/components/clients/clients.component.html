@@ -1,0 +1,78 @@
+<form (ngSubmit)="insertClient()">
+    <div class="form-group">
+        <label for="identification">Identificación</label>
+        <input type="text" name="identification" class="form-control" [formControl]="identificationCtrl" [(ngModel)]="client.Cedula">
+        <div>
+            <p *ngIf="identificationCtrl.errors && identificationCtrl.dirty">
+                <small *ngIf="identificationCtrl.hasError('required')">El campo es requerido</small>
+                <small *ngIf="identificationCtrl.hasError('minlength')">Debe ser de 10 digitos</small>
+                <small *ngIf="identificationCtrl.hasError('maxlength')">Debe ser de 10 digitos</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" 
+        class="form-control" [formControl]="nameCtrl"
+        [(ngModel)]="client.Nombre">
+        <div>
+            <p *ngIf="nameCtrl.errors && nameCtrl.dirty">
+                <small *ngIf="nameCtrl.hasError('required')">El campo es requerido</small>
+                <small *ngIf="nameCtrl.hasError('minlength')">Debe ser mínimo de 4</small>
+            </p>
+        </div>
+    </div>    
+    <div class="form-group">
+        <label for="lastname">Apellido</label>
+        <input type="text" class="form-control" [formControl]="lastnameCtrl" name="lastname" [(ngModel)]="client.Apellido">
+        <div>
+            <p *ngIf="lastnameCtrl.errors && lastnameCtrl.dirty">
+                <small *ngIf="lastnameCtrl.hasError('required')">El campo es requerido</small>
+                <small *ngIf="lastnameCtrl.hasError('minlength')">Debe ser mínimo de 4</small>
+            </p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="phonenumber">Telefono</label>
+        <input type="text" name="phonenumber" class="form-control" [formControl]="phonenumberCtrl" [(ngModel)]="client.Telefono">
+        <div>
+            <p *ngIf="phonenumberCtrl.errors && phonenumberCtrl.dirty">
+                <small *ngIf="phonenumberCtrl.hasError('required')">El campo es requerido</small>
+                <small *ngIf="phonenumberCtrl.hasError('minlength')">Debe ser mínimo de 7</small>
+                <small *ngIf="phonenumberCtrl.hasError('maxlength')">Debe ser maximo de 10</small>
+            </p>
+        </div>
+    </div>  
+    
+    <button [disabled]="identificationCtrl.invalid"
+    [disabled]="nameCtrl.invalid"  
+    [disabled]="lastnameCtrl.invalid"
+    [disabled]="phonenumberCtrl.invalid"    
+    class="btn btn-dark btn-sm mt-4">Crear</button>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Cedula</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Telefono</th>
+            <th>Acción</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cli of clients">
+            <th scope="row">{{ cli.idCliente }}</th>
+            <td>{{ cli.Cedula }}</td>
+            <td>{{ cli.Nombre }}</td>
+            <td>{{ cli.Apellido }}</td>
+            <td>{{ cli.Telefono }}</td>         
+            <td>
+                <button class="btn btn-danger btm-sm" (click)="deleteClient(cli.idCliente)">Eliminar</button>
+                <button class="btn btn-warning btm-sm mx-2" routerLink="editClient/{{cli.idCliente}}">Editar</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
